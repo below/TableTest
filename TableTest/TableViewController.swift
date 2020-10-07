@@ -11,7 +11,6 @@ import UIKit
 class TableViewController: UITableViewController {
 
     var sections: Int = 1
-    var editableCell: UITableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,15 +18,9 @@ class TableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         sections = 1
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { (_) in
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (_) in
             self.sections = 2
-            debugPrint("Timer Fired")
-            guard let cell = self.editableCell as? TableViewCell_A else {
-                return
-            }
-            cell.canResign = true
             self.tableView.reloadData()
-            cell.canResign = true
         })
     }
 
@@ -54,11 +47,13 @@ class TableViewController: UITableViewController {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 
-        if indexPath.section == 0 {
-            self.editableCell = cell
-            cell.becomeFirstResponder()
-        }
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? TableViewCell_A {
+            _ = cell.becomeFirstResponder()
+        }
+    }
+    
 }

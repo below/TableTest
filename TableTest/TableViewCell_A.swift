@@ -8,25 +8,9 @@
 
 import UIKit
 
-class TextField: UITextField {
-    public var canResign = true
-
-    override var canResignFirstResponder: Bool {
-        return canResign
-    }
-}
-
 class TableViewCell_A: UITableViewCell {
 
-    @IBOutlet var textField: TextField!
-    var canResign: Bool {
-        get {
-            return textField.canResign
-        }
-        set {
-            textField.canResign = newValue
-        }
-    }
+    @IBOutlet var textField: UITextField!
 
     override var canBecomeFirstResponder: Bool {
         return true
